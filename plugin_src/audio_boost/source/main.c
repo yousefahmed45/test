@@ -29,6 +29,13 @@ attr_public u32 g_pluginVersion = 0x00000100; // 1.00
 
 static volatile s32 g_gain_q8 = (DEFAULT_GAIN_PERCENT * 256) / 100;
 
+/* HOOK32(name) needs the real function name to be declared (this is why
+ * fliprate_remover includes <orbis/VideoOut.h>). These prototypes match the
+ * hook functions below, so no extra SDK header is needed. */
+s32 sceAudioOutOpen(s32 userId, s32 type, s32 index, u32 len, u32 freq, u32 param);
+s32 sceAudioOutOutput(s32 handle, void *ptr);
+s32 sceAudioOutClose(s32 handle);
+
 HOOK_INIT(sceAudioOutOpen);
 HOOK_INIT(sceAudioOutOutput);
 HOOK_INIT(sceAudioOutClose);
